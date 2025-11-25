@@ -6,12 +6,19 @@ function Square({value, onSquareClick}) {
 
 
 export default function Board() {
+  const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
 
   function handleClick(i) {
+    if (squares[i]) return;     // Check if the square already has an 'X' or 'O'
+
     const nextSquares = squares.slice();    // create a copy of the squares array --> IMMUTABLE
-    nextSquares[i] = "X";
+
+    if (xIsNext) nextSquares[i] = "X";
+    else nextSquares[i] = "O";
+
     setSquares(nextSquares);
+    setXIsNext(!xIsNext);
   }
   return(
     <>
